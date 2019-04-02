@@ -11,6 +11,8 @@
                 <outlet property="deleteButton" destination="kl6-Qk-Tp2" id="q1W-gh-jGA"/>
                 <outlet property="grantsController" destination="E7S-7a-D9h" id="h1a-Oi-KI3"/>
                 <outlet property="tableView" destination="nMb-es-29l" id="GUn-98-N6n"/>
+                <outlet property="tickerField" destination="e83-zr-6GE" id="HAT-1F-xlU"/>
+                <outlet property="tokenField" destination="Gy2-3G-c1P" id="lP4-Hj-olM"/>
                 <outlet property="window" destination="RSJ-xa-C80" id="Kfc-Ig-LAv"/>
             </connections>
         </customObject>
@@ -20,7 +22,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="283" y="305" width="473" height="345"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="473" height="345"/>
             <value key="maxSize" type="size" width="473" height="345"/>
             <view key="contentView" id="QwY-2u-hhK">
@@ -53,6 +55,7 @@
                                     </secureTextFieldCell>
                                     <connections>
                                         <action selector="updateToken:" target="-2" id="0Qn-No-xfv"/>
+                                        <binding destination="iuL-Zp-IXa" name="value" keyPath="values.token" id="Kz2-2A-WhI"/>
                                     </connections>
                                 </secureTextField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LCj-Gm-MCV">
@@ -65,13 +68,14 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e83-zr-6GE">
                                     <rect key="frame" x="73" y="20" width="340" height="22"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="LYFT" placeholderString="Stock Ticker" drawsBackground="YES" id="kqY-Ya-djO">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Stock Ticker" drawsBackground="YES" id="kqY-Ya-djO">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
                                         <action selector="updateTicker:" target="-2" id="eQc-gb-uVi"/>
+                                        <binding destination="iuL-Zp-IXa" name="value" keyPath="values.ticker" id="p7v-fi-hAw"/>
                                     </connections>
                                 </textField>
                             </subviews>
