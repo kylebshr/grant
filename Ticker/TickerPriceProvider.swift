@@ -48,7 +48,7 @@ extension Date {
         }
 
         let open = calendar.date(bySettingHour: 9, minute: 30, second: 0, of: est)!
-        let close = calendar.date(bySettingHour: 4, minute: 0, second: 0, of: est)!
+        let close = calendar.date(bySettingHour: 16, minute: 0, second: 0, of: est)!
 
         return est >= open && est <= close
     }
