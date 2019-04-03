@@ -23,7 +23,10 @@ class TickerPriceProvider {
     }
 
     private func refreshIfNeeded() {
-        guard Date().isTradingHours || cached == nil else { return }
+        guard Date().isTradingHours || cached == nil else {
+            cached.flatMap(update)
+            return
+        }
 
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             data.flatMap {
