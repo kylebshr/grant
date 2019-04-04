@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SettingsWindowController" customModule="Grant" customModuleProvider="target">
             <connections>
-                <outlet property="addButton" destination="ddZ-zB-gYL" id="HIP-xX-NVW"/>
-                <outlet property="deleteButton" destination="kl6-Qk-Tp2" id="q1W-gh-jGA"/>
+                <outlet property="addRemoveSegment" destination="hdT-Pf-68i" id="Erk-kS-v0Z"/>
                 <outlet property="grantsController" destination="E7S-7a-D9h" id="h1a-Oi-KI3"/>
                 <outlet property="tableView" destination="nMb-es-29l" id="GUn-98-N6n"/>
                 <outlet property="tickerField" destination="e83-zr-6GE" id="HAT-1F-xlU"/>
@@ -103,13 +103,13 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="ooZ-9A-lpZ">
-                                    <rect key="frame" x="73" y="39" width="340" height="144"/>
+                                    <rect key="frame" x="73" y="49" width="340" height="134"/>
                                     <clipView key="contentView" id="QkU-fo-uvX">
-                                        <rect key="frame" x="1" y="0.0" width="338" height="143"/>
+                                        <rect key="frame" x="1" y="0.0" width="338" height="133"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="F7G-RX-1b7" viewBased="YES" id="nMb-es-29l">
-                                                <rect key="frame" x="0.0" y="0.0" width="338" height="118"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="338" height="108"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -248,32 +248,6 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                     </tableHeaderView>
                                 </scrollView>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ddZ-zB-gYL">
-                                    <rect key="frame" x="388" y="19" width="24" height="21"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="24" id="OA1-z8-uGi"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pMq-vU-abU">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="addGrant:" target="-2" id="CaM-FP-FX4"/>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kl6-Qk-Tp2">
-                                    <rect key="frame" x="364" y="19" width="24" height="21"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="24" id="V2C-Qo-G0r"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nCb-sH-4rD">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="deleteSelectedRow:" target="-2" id="HCK-ns-TNs"/>
-                                    </connections>
-                                </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fos-Nu-bs9">
                                     <rect key="frame" x="18" y="162" width="49" height="17"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Grants:" id="hBD-RK-CoA">
@@ -282,18 +256,29 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hdT-Pf-68i">
+                                    <rect key="frame" x="344" y="18" width="71" height="24"/>
+                                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="zuF-kE-RQv">
+                                        <font key="font" metaFont="system"/>
+                                        <segments>
+                                            <segment image="NSRemoveTemplate" width="32" enabled="NO"/>
+                                            <segment image="NSAddTemplate" width="32" tag="1"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="addOrRemoveGrant:" target="-2" id="a3c-la-XfW"/>
+                                        </connections>
+                                    </segmentedCell>
+                                </segmentedControl>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="kl6-Qk-Tp2" firstAttribute="top" secondItem="ooZ-9A-lpZ" secondAttribute="bottom" id="B4l-ql-O3L"/>
                                 <constraint firstAttribute="trailing" secondItem="ooZ-9A-lpZ" secondAttribute="trailing" constant="20" symbolic="YES" id="HQy-QO-ufM"/>
-                                <constraint firstItem="ddZ-zB-gYL" firstAttribute="trailing" secondItem="nMb-es-29l" secondAttribute="trailing" id="Ify-k9-Wsa"/>
-                                <constraint firstItem="ddZ-zB-gYL" firstAttribute="top" secondItem="ooZ-9A-lpZ" secondAttribute="bottom" id="Mhm-aq-3ry"/>
                                 <constraint firstItem="ooZ-9A-lpZ" firstAttribute="leading" secondItem="fos-Nu-bs9" secondAttribute="trailing" constant="8" symbolic="YES" id="Nxo-Ml-rSI"/>
-                                <constraint firstItem="ddZ-zB-gYL" firstAttribute="leading" secondItem="kl6-Qk-Tp2" secondAttribute="trailing" id="Rdr-4y-9Tk"/>
                                 <constraint firstItem="fos-Nu-bs9" firstAttribute="leading" secondItem="sya-A2-woB" secondAttribute="leading" constant="20" symbolic="YES" id="Y3D-SU-M79"/>
+                                <constraint firstItem="hdT-Pf-68i" firstAttribute="top" secondItem="ooZ-9A-lpZ" secondAttribute="bottom" constant="8" symbolic="YES" id="ZI1-CK-3pU"/>
                                 <constraint firstItem="ooZ-9A-lpZ" firstAttribute="top" secondItem="sya-A2-woB" secondAttribute="top" constant="20" symbolic="YES" id="aP0-3L-XwV"/>
+                                <constraint firstAttribute="bottom" secondItem="hdT-Pf-68i" secondAttribute="bottom" constant="20" symbolic="YES" id="dBZ-us-Kap"/>
                                 <constraint firstItem="fos-Nu-bs9" firstAttribute="centerY" secondItem="F7G-RX-1b7" secondAttribute="centerY" id="f6g-BV-3eR"/>
-                                <constraint firstAttribute="bottom" secondItem="ddZ-zB-gYL" secondAttribute="bottom" constant="20" symbolic="YES" id="fUF-sJ-oq1"/>
+                                <constraint firstAttribute="trailing" secondItem="hdT-Pf-68i" secondAttribute="trailing" constant="20" symbolic="YES" id="qgQ-zg-cqd"/>
                             </constraints>
                         </view>
                         <font key="titleFont" metaFont="system"/>

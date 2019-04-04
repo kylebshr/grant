@@ -8,8 +8,7 @@ protocol SettingsDelegate: AnyObject {
 class SettingsWindowController: NSWindowController, NSWindowDelegate {
     @IBOutlet var grantsController: NSArrayController!
     @IBOutlet var tableView: NSTableView!
-    @IBOutlet var addButton: NSButton!
-    @IBOutlet var deleteButton: NSButton!
+    @IBOutlet var addRemoveSegment: NSSegmentedControl!
 
     weak var delegate: SettingsDelegate?
 
@@ -34,21 +33,17 @@ class SettingsWindowController: NSWindowController, NSWindowDelegate {
     }
 
     @IBAction private func tableViewClicked(_ sender: NSTableView) {
-        deleteButton.isEnabled = sender.selectedRow != -1
+        addRemoveSegment.setEnabled(sender.selectedRow != -1, forSegment: 0)
     }
 
-    @IBAction private func deleteSelectedRow(_ sender: NSButton) {
-        grantsController.remove(atArrangedObjectIndex: tableView.selectedRow)
-        if GrantController.shared.grants.count > 0 {
-            tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
+    @IBAction func addOrRemoveGrant(_ sender: NSSegmentedCell) {
+        if sender.isSelected(forSegment: 0) {
+            deleteSelectedRow()
         } else {
-            deleteButton.isEnabled = false
+            addGrant()
         }
     }
 
-    @IBAction func addGrant(_ sender: NSButton) {
-        grantsController.addObject(Grant(shares: 0, grantDate: Date()))
-    }
 
     @IBAction func updateToken(_ sender: NSTextField) {
         delegate?.set(token: sender.stringValue)
@@ -56,6 +51,19 @@ class SettingsWindowController: NSWindowController, NSWindowDelegate {
 
     @IBAction func updateTicker(_ sender: NSTextField) {
         delegate?.set(ticker: sender.stringValue)
+    }
+
+    private func deleteSelectedRow() {
+        grantsController.remove(atArrangedObjectIndex: tableView.selectedRow)
+        if GrantController.shared.grants.count > 0 {
+            tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
+        } else {
+            addRemoveSegment.setEnabled(false, forSegment: 0)
+        }
+    }
+
+    private func addGrant() {
+        grantsController.addObject(Grant(shares: 0, grantDate: Date()))
     }
 
     func windowWillClose(_ notification: Notification) {
