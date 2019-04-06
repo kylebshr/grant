@@ -1,3 +1,4 @@
+import AppKit
 import Foundation
 
 class TickerPriceProvider {
@@ -20,6 +21,13 @@ class TickerPriceProvider {
 
         RunLoop.main.add(timer, forMode: .common)
         timer.fire()
+
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(refresh),
+            name: NSWorkspace.didWakeNotification,
+            object: nil
+        )
     }
 
     private func refreshIfNeeded() {
@@ -28,6 +36,10 @@ class TickerPriceProvider {
             return
         }
 
+        refresh()
+    }
+
+    @objc private func refresh() {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             data.flatMap {
                 try? self.decoder.decode(Quote.self, from: $0)
