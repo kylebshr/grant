@@ -36,7 +36,7 @@ class StatusItemController {
         item.menu = menu
         item.isVisible = true
 
-        let tax: Double = 0
+        let tax: Double = 1 - 1891.0 / 3000
         let percent = 1 - tax
 
         let provider = TickerPriceProvider(ticker: ticker, apiKey: token) { [weak item] quote in
