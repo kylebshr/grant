@@ -5,7 +5,7 @@ class Grant: NSObject, Codable {
     @objc dynamic var grantDate: Date
     @objc dynamic var cliff: Date?
 
-    var vested: Int {
+    func vested(at date: Date = Date()) -> Int {
         let calendar = Calendar(identifier: .gregorian)
 
         var fourYears = DateComponents()
@@ -14,7 +14,7 @@ class Grant: NSObject, Codable {
         let endDate = calendar.date(byAdding: fourYears, to: grantDate)!
 
         let totalQuarters = grantDate.quarters(to: endDate)
-        let elapsedQuarters = grantDate.quarters(to: Date())
+        let elapsedQuarters = grantDate.quarters(to: date)
 
         guard totalQuarters > 0 else {
             return 0

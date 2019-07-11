@@ -16,12 +16,24 @@ class StatusItemController {
         formatter.numberStyle = .currency
 
         let menu = NSMenu()
+
         menu.addItem(titleItem("VESTED"))
+        let vestedStockItem = standardItem(nil)
+        menu.addItem(vestedStockItem)
         let vestedMenuItem = standardItem(nil)
         menu.addItem(vestedMenuItem)
 
         menu.addItem(NSMenuItem.separator())
+        menu.addItem(titleItem("VESTING NEXT"))
+        let vestingNextStockItem = standardItem(nil)
+        menu.addItem(vestingNextStockItem)
+        let vestingNextMenuItem = standardItem(nil)
+        menu.addItem(vestingNextMenuItem)
+
+        menu.addItem(NSMenuItem.separator())
         menu.addItem(titleItem("UNVESTED"))
+        let unvestedStockItem = standardItem(nil)
+        menu.addItem(unvestedStockItem)
         let unvestedMenuItem = standardItem(nil)
         menu.addItem(unvestedMenuItem)
 
@@ -36,7 +48,7 @@ class StatusItemController {
         item.menu = menu
         item.isVisible = true
 
-        let tax: Double = 1 - 1891.0 / 3000
+        let tax: Double = 1 - 2561.0 / 4027
         let percent = 1 - tax
 
         let provider = TickerPriceProvider(ticker: ticker, apiKey: token) { [weak item] quote in
@@ -46,9 +58,21 @@ class StatusItemController {
 
             let grants = GrantController.shared.grants
 
-            let vestedShares = grants.reduce(into: 0) { $0 += $1.vested }
+            let vestedShares = grants.reduce(into: 0) { $0 += $1.vested() }
+            let vestedSharesAfterTax = Int(Double(vestedShares) * percent)
+            vestedStockItem.updateAttributedTitle("~\(vestedSharesAfterTax) Shares")
+
             if let value = formatter.string(from: Double(vestedShares) * quote.latestPrice * percent as NSNumber) {
                 vestedMenuItem.updateAttributedTitle(value)
+            }
+
+            let oneQuarterFromNow = Calendar.current.date(byAdding: .month, value: 3, to: Date())!
+            let vestingNextShares = grants.reduce(into: 0) { $0 += $1.vested(at: oneQuarterFromNow) } - vestedShares
+            let nextVestingSharesAfterTax = Int(Double(vestingNextShares) * percent)
+            vestingNextStockItem.updateAttributedTitle("~\(nextVestingSharesAfterTax) Shares")
+
+            if let value = formatter.string(from: Double(vestingNextShares) * quote.latestPrice * percent as NSNumber) {
+                vestingNextMenuItem.updateAttributedTitle(value)
             }
 
             let totalShares = grants.reduce(into: 0) { $0 += $1.shares }
@@ -57,6 +81,10 @@ class StatusItemController {
             }
 
             let unvestedShares = totalShares - vestedShares
+
+            let unvestedSharesAfterTax = Int(Double(unvestedShares) * percent)
+            unvestedStockItem.updateAttributedTitle("~\(unvestedSharesAfterTax) Shares")
+
             if let value = formatter.string(from: Double(unvestedShares) * quote.latestPrice * percent as NSNumber) {
                 unvestedMenuItem.updateAttributedTitle(value)
             }
