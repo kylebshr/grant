@@ -8,6 +8,13 @@ class Grant: NSObject, Codable {
     func vested(at date: Date = Date()) -> Int {
         let calendar = Calendar(identifier: .gregorian)
 
+        if let cliff = cliff {
+            guard date > cliff else {
+                print("date less than cliff")
+                return 0
+            }
+        }
+
         var fourYears = DateComponents()
         fourYears.year = 4
 
